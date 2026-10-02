@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,22 +14,11 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// --- PFAD FÜR SQLITE ANPASSEN ---
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=wedding_rsvp.db";
-
-if (!connectionString.Contains("Data Source=", StringComparison.OrdinalIgnoreCase))
-{
-    connectionString = $"Data Source={connectionString}";
-}
-
-var dbPath = Path.Combine(Directory.GetCurrentDirectory(), "wedding_rsvp.db");
-var finalConnectionString = $"Data Source={dbPath}";
-
-// Datenbank-Kontext für SQLite mit dem absoluten Pfad registrieren
+// --- DATENBANK-KONFIGURATION FÜR SUPABASE (POSTGRESQL) ---
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(finalConnectionString));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-    builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/Guestbook/Index"; // Wo der Login stattfindet
@@ -58,11 +46,12 @@ app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
-// Sorgt dafür, dass die Datenbank und Tabellen beim Start automatisch erstellt werden
+// Sorgt dafür, dass die Datenbank-Migrationen beim Start automatisch auf Supabase angewendet werden
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
-    context.Database.EnsureCreated();
+    context.Database.Migrate();
 }
+
 app.Run();
