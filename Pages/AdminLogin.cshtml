@@ -1,0 +1,23 @@
+@page
+@model AdminLoginModel
+@{
+    ViewData["Title"] = "Admin Login";
+}
+<div class="container mt-5" style="max-width: 400px;">
+    <h2>Admin Login</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label>Name (Andrea, Katja, Heike, Lulu)</label>
+            <input type="text" asp-for="AdminName" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label>Passwort</label>
+            <input type="password" asp-for="Password" class="form-control" required />
+        </div>
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="text-danger mb-3">@Model.ErrorMessage</div>
+        }
+        <button type="submit" class="btn btn-primary">Anmelden</button>
+    </form>
+</div>

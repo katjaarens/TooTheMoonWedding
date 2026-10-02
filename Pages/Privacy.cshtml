@@ -1,0 +1,90 @@
+﻿@page
+@{
+    ViewData["Title"] = "Datenschutz";
+}
+
+<style>
+    .privacy-card {
+        background-color: rgba(15, 18, 28, 0.95);
+        border: 1px solid rgba(230, 207, 169, 0.3);
+        border-radius: 16px;
+        padding: 2.5rem;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        color: #f8fafc;
+        max-width: 900px;
+        margin: 2rem auto;
+    }
+    .privacy-card h2, .privacy-card h3 {
+        color: #e6cfa9;
+        font-family: 'Alex Brush', cursive;
+        text-align: center;
+    }
+    .privacy-card h2 {
+        font-size: 3.5rem;
+        margin-bottom: 0;
+    }
+    .privacy-card h3 {
+        font-size: 2.2rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgba(230, 207, 169, 0.15);
+        padding-bottom: 0.5rem;
+    }
+    .privacy-card p, .privacy-card li {
+        color: #e2e8f0;
+        line-height: 1.6;
+    }
+    .privacy-card ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    .privacy-card li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .privacy-card li::before {
+        content: "•";
+        color: #e6cfa9;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+    }
+    .text-subtitle {
+        text-align: center;
+        color: #cbd5e1 !important;
+        margin-bottom: 2.5rem;
+    }
+</style>
+
+<div class="container">
+    <div class="privacy-card">
+        <h2>Eure Privatsphäre</h2>
+        <p class="text-subtitle">Wir möchten, dass ihr euch auf unserer Hochzeitsseite sicher fühlt. Darum erklären wir euch hier kurz und verständlich, wie wir mit euren Daten umgehen.</p>
+
+        <h3>Was wir erfassen</h3>
+        <p>Auf unserer öffentlichen Seite werden keine Daten automatisch gespeichert. Wir setzen keine Tracker und keine externen Analyse-Tools ein.</p>
+        <p>Die einzigen Daten, die wir erfassen, sind:</p>
+        <ul>
+            <li>Angaben aus dem RSVP-Formular (Name, E-Mail-Adresse, Teilnahme-Status, Partner-Name und Nachrichten an uns).</li>
+            <li>Ein technisches Session-Cookie, das ausschließlich beim Login für den internen Admin-Bereich (Sitzplan-Verwaltung) verwendet wird.</li>
+        </ul>
+
+        <h3>Wofür wir die Daten nutzen</h3>
+        <p>Ausschließlich zur Planung unserer Hochzeit – damit wir wissen, wer kommt, die Sitzordnung planen und euch bei Rückfragen erreichen können.</p>
+
+        <h3>Was wir NICHT tun</h3>
+        <ul>
+            <li>keine Weitergabe an Dritte</li>
+            <li>keine Werbung</li>
+            <li>keine Analyse-Tools oder Social-Media-Tracker</li>
+            <li>keine dauerhafte Speicherung von IP-Adressen</li>
+        </ul>
+
+        <h3>Löschung der Daten</h3>
+        <p>Nach der Hochzeit löschen wir alle übermittelten RSVP-Informationen und Zugangsdaten vollständig.</p>
+
+        <h3>Kontakt</h3>
+        <p class="text-center mb-0">Wenn ihr Fragen zum Datenschutz habt, könnt ihr euch jederzeit direkt an uns melden.</p>
+    </div>
+</div>

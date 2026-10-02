@@ -1,0 +1,208 @@
+@page
+@model TooTheMoonWedding.Pages.SeatingPlanModel
+@{
+    ViewData["Title"] = "Sitzplan verwalten";
+    var totalConfirmed = Model.UnassignedGuests.Count + Model.Assignments.Where(a => !string.IsNullOrEmpty(a.GuestName)).Count();
+    
+    // Korrekt mit HttpContext prüfen, ob der User Admin ist
+    bool isAdmin = HttpContext.Session.GetString("IsAdmin") == "true";
+}
+
+<style>
+    .seating-card {
+        background-color: rgba(15, 18, 28, 0.95);
+        border: 1px solid rgba(230, 207, 169, 0.3);
+        border-radius: 16px;
+        padding: 2.5rem;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        color: #fff;
+    }
+    .inner-box {
+        background-color: rgba(20, 24, 38, 0.95);
+        border: 1px solid rgba(230, 207, 169, 0.25);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .table-box {
+        background-color: rgba(20, 24, 38, 0.95);
+        border: 1px solid rgba(230, 207, 169, 0.25);
+        border-radius: 12px;
+        padding: 1.2rem;
+        position: relative;
+    }
+    .guest-badge {
+        background: rgba(10, 12, 20, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        padding: 0.4rem 0.8rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        margin: 3px;
+        color: #e2e8f0;
+    }
+    .btn-wedding {
+        background: linear-gradient(135deg, #e6cfa9 0%, #c4ab82 100%);
+        color: #0f121c;
+        font-weight: 600;
+        border: none;
+    }
+    .btn-wedding:hover {
+        background: linear-gradient(135deg, #f3dbc0 0%, #d2b890 100%);
+        color: #0f121c;
+    }
+</style>
+
+<div class="container mt-4 mb-5" style="max-width: 1300px;">
+    <div class="seating-card">
+        
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4 pb-3 border-bottom" style="border-color: rgba(230, 207, 169, 0.15) !important;">
+            <div>
+                <h2 style="color: #e6cfa9; font-family: 'Alex Brush', cursive; font-size: 3.5rem;" class="mb-0">Sitzplan verwalten</h2>
+                <p class="text-muted mb-0" style="font-size: 0.95rem;">
+                    @if (isAdmin) { <span>Weise die Gäste den Tischen zu.</span> } else { <span>Der aktuelle Sitzplan unserer Gäste.</span> }
+                </p>
+            </div>
+            <div class="d-flex gap-2">
+                <span class="px-3 py-2 rounded text-white small" style="background: rgba(20, 24, 38, 0.95); border: 1px solid rgba(230, 207, 169, 0.2);">
+                    Zugs.: <strong>@totalConfirmed P.</strong>
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Linke Spalte: Nur für Admins (Unzugewiesene Gäste & Neuer Tisch) -->
+            @if (isAdmin)
+            {
+                <div class="col-lg-4">
+                    
+                    <!-- Unzugewiesene Gäste -->
+                    <div class="inner-box">
+                        <h5 style="color: #e6cfa9;" class="mb-2">Unzugewiesene Gäste (@Model.UnassignedGuests.Count)</h5>
+                        <p class="text-muted small mb-3">Gäste, die noch keinen Platz haben:</p>
+                        
+                        @if (!Model.UnassignedGuests.Any())
+                        {
+                            <div class="text-center text-muted py-3 small border border-secondary border-dashed rounded">
+                                Alle Gäste haben einen Platz! 🎉
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="d-flex flex-column gap-2">
+                                @foreach (var guestName in Model.UnassignedGuests)
+                                {
+                                    <div class="p-2 rounded bg-black border border-secondary d-flex justify-content-between align-items-center">
+                                        <span class="text-white small"><strong>@guestName</strong></span>
+                                        
+                                        <!-- Schnell-Zuweisung an einen Tisch -->
+                                        <form method="post" asp-page-handler="Assign" class="d-flex gap-1 mb-0">
+                                            <input type="hidden" name="guestName" value="@guestName" />
+                                            <select name="targetTable" class="form-select form-select-sm bg-dark text-white border-secondary" style="font-size: 0.8rem;" required>
+                                                <option value="">Tisch wählen...</option>
+                                                @foreach (var tableName in Model.Assignments.Select(a => a.TableName).Distinct())
+                                                {
+                                                    <option value="@tableName">@tableName</option>
+                                                }
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-outline-warning py-0 px-2">✓</button>
+                                        </form>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Neuen Tisch erstellen -->
+                    <div class="inner-box">
+                        <h5 style="color: #e6cfa9;" class="mb-3">Neuen Tisch erstellen</h5>
+                        <form method="post" asp-page-handler="AddTable">
+                            <div class="mb-3">
+                                <label class="form-label text-muted small">Tischname</label>
+                                <input type="text" asp-for="TableName" class="form-control bg-black text-white border-secondary" placeholder="z. B. Ehrentisch" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted small">Kapazität</label>
+                                <input type="number" asp-for="Capacity" class="form-control bg-black text-white border-secondary" value="8" />
+                            </div>
+                            <button type="submit" class="btn btn-wedding w-100 py-2">Tisch hinzufügen</button>
+                        </form>
+                    </div>
+
+                </div>
+            }
+
+            <!-- Rechte Spalte (bzw. volle Breite für Gäste): Tisch-Layout im Raum -->
+            <div class="@(isAdmin ? "col-lg-8" : "col-12")">
+                <h5 style="color: #e6cfa9;" class="mb-3">Tisch-Layout im Raum</h5>
+                
+                <div class="row g-3">
+                    @{
+                        var tableGroups = Model.Assignments.GroupBy(a => a.TableName).ToList();
+                    }
+
+                    @if (!tableGroups.Any())
+                    {
+                        <div class="col-12">
+                            <div class="table-box text-center text-muted py-5">
+                                Noch keine Tische erstellt.
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach (var group in tableGroups)
+                        {
+                            var guestsAtTable = group.Where(g => !string.IsNullOrEmpty(g.GuestName)).ToList();
+                            <div class="col-md-@(isAdmin ? "6" : "4")">
+                                <div class="table-box h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom border-secondary">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <h6 class="mb-0" style="color: #e6cfa9;"><strong>@group.Key</strong></h6>
+                                            <span class="badge bg-secondary text-white small">@guestsAtTable.Count P.</span>
+                                        </div>
+                                        @if (isAdmin)
+                                        {
+                                            <!-- Button um den ganzen Tisch zu löschen (nur Admin) -->
+                                            <form method="post" asp-page-handler="DeleteTable" asp-route-tableName="@group.Key" class="mb-0">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger py-0 px-1" title="Tisch löschen" style="font-size: 0.75rem;">Tisch löschen</button>
+                                            </form>
+                                        }
+                                    </div>
+
+                                    <div class="d-flex flex-wrap gap-1 mt-2">
+                                        @if (!guestsAtTable.Any())
+                                        {
+                                            <span class="text-muted small fst-italic">Tisch ist noch leer.</span>
+                                        }
+                                        else
+                                        {
+                                            @foreach (var item in guestsAtTable)
+                                            {
+                                                <div class="guest-badge">
+                                                    <span>@item.GuestName</span>
+                                                    @if (isAdmin)
+                                                    {
+                                                        <!-- Gast vom Tisch entfernen (nur Admin) -->
+                                                        <form method="post" asp-page-handler="RemoveGuest" asp-route-id="@item.Id" class="mb-0 d-inline">
+                                                            <button type="submit" class="btn btn-link text-danger p-0 ms-1 text-decoration-none" style="font-size: 0.8rem;">×</button>
+                                                        </form>
+                                                    }
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,656 @@
+﻿@page "/Main"
+@model IndexModel
+@{
+    ViewData["Title"] = "To the Moon & Back";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Katja &amp; Andrea</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts: Alex Brush, Pinyon Script & Calligraffitti -->
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Handlee&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+    <style>
+        /* Zwingt "Unsere Geschichte" zu Pinyon Script und Gold-Farbe */
+        .story-stats-section h1 {
+            font-family: 'Pinyon Script', cursive !important;
+            color: #e6cfa9 !important;
+            font-size: 4.8rem !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sternenhimmel -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <!-- Große, dekorative Vektor-Sterne im Hintergrund -->
+    <div class="deco-star star-1">★</div>
+    <div class="deco-star star-2">★</div>
+    <div class="deco-star star-3">★</div>
+    <div class="deco-star star-4">★</div>
+
+   <!-- Hero Section mit Mond oben und Karte darunter -->
+    <main class="hero-section">
+        <!-- Der Mond oben im Header zentriert -->
+        <div class="moon-header"></div>
+
+        <div class="content-container">
+            <!-- Linke Spalte: Großes Foto -->
+            <div class="left-column">
+                <div class="couple-photo-wrapper">
+                    <img src="~/images/wir.jpg" alt="Katja &amp; Andrea" class="couple-photo" />
+                </div>
+            </div>
+
+            <!-- Rechte Spalte: Text & Buttons -->
+            <div class="text-content">
+                <span class="subtitle">„Zusammen zum Mond – und noch viel weiter“</span>
+                <span style="font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Nach den Sternen greifen und „Ja“ sagen.</span>
+                
+                <h1>Andrea <span class="amp">&amp;</span> Katja</h1>
+                
+                <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 2.0rem;">Wir laden euch von Herzen ein 🌙✨</p>
+
+                <div class="countdown-card text-center my-5">
+                    <h3 class="countdown-title">Der Countdown zum Abflug</h3>
+                    <p class="countdown-subtitle">Jede Sekunde bringt uns dem großen Moment näher...</p>
+                    
+                    <div id="wedding-countdown" class="d-flex justify-content-center gap-3 gap-md-4 my-4 flex-wrap">
+                        <div class="time-box">
+                            <span id="days" class="time-number">00</span>
+                            <span class="time-label">Tage</span>
+                        </div>
+                        <div class="time-box">
+                            <span id="hours" class="time-number">00</span>
+                            <span class="time-label">Stunden</span>
+                        </div>
+                        <div class="time-box">
+                            <span id="minutes" class="time-number">00</span>
+                            <span class="time-label">Minuten</span>
+                        </div>
+                        <div class="time-box">
+                            <span id="seconds" class="time-number">00</span>
+                            <span class="time-label">Sekunden</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="date" style="margin-bottom: 1.5rem;">
+                    05. August 2028<br>
+                    <span style="font-size: 1.1rem; color: var(--text-muted); font-weight: 300;">Königshof Erwitte &amp; Sprikeltrix</span>
+                </div>
+                <div class="action-buttons">
+                    <a href="#rsvp" class="btn-primary">Ticket für den Flug sichern</a>
+                    <a href="#info-modal" style="background: transparent !important; color: #e6cfa9 !important; border: 2px solid rgba(230, 207, 169, 0.4) !important;" class="info-button">Mehr Infos</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Pop-up / Modal -->
+        <div id="info-modal" class="css-modal">
+            <div class="css-modal-content">
+                <a href="#" class="css-modal-close">×</a>
+
+                <h2 style="color: #e6cfa9; font-family: 'Alex Brush', cursive; font-size: 2.8rem; text-align: center; margin-bottom: 0.2rem;">Infos zur Homepage</h2>
+                <p class="text-subtitle" style="color: #cbd5e1; text-align: center; margin-bottom: 1.5rem;">Ein kleiner navigatorischer Bordcomputer für eure Reise auf unserer Hochzeitsseite.</p>
+
+                <div style="margin-bottom: 1.2rem;">
+                    <h3 style="color: #e6cfa9; font-size: 1.1rem; margin-bottom: 0.2rem;">🌕 Der Bordcomputer (Sitzplan & Verwaltung)</h3>
+                    <p style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.5;">Hier auf unserer digitalen Steuerkonsole könnt ihr euren RSVP-Status einsehen. Für uns als Crew hilft uns das Tool im Hintergrund, den Sitzplan und die Tische perfekt vorzubereiten.</p>
+                </div>
+
+                <div style="margin-bottom: 1.2rem;">
+                    <h3 style="color: #e6cfa9; font-size: 1.1rem; margin-bottom: 0.2rem;">🪐✨ Der Flugplan (Ablauf)</h3>
+                    <p style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.5;">Unter dem Menüpunkt „Ablauf“ findet ihr alle wichtigen Stationen unseres gemeinsamen Tages – vom Boarding bis zur Landung in der Partynacht.</p>
+                </div>
+
+                <div style="margin-bottom: 1.2rem;">
+                    <h3 style="color: #e6cfa9; font-size: 1.1rem; margin-bottom: 0.2rem;">💬🌙 Bordfunk & Antworten</h3>
+                    <p style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.5;">Ihr habt Fragen zum Flug, zum Dresscode oder wollt uns eine Nachricht hinterlassen? Schaut in die FAQs oder gebt unserer Crew direkt Bescheid.</p>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <h3 style="color: #e6cfa9; font-size: 1.1rem; margin-bottom: 0.2rem;">📝✨ Eure Rückmeldung (RSVP)</h3>
+                    <p style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.5;">Vergesst nicht, uns über das RSVP-Formular eure Zusage (und euren Partner) zu übermitteln, damit unser Raumschiff komplett besetzt ist!</p>
+                </div>
+
+                <p style="text-align: center; margin-top: 1.5rem; font-style: italic; color: #e6cfa9; border-top: 1px solid rgba(230, 207, 169, 0.2); padding-top: 1rem;">
+                    🌙✨💛 Wir freuen uns unendlich auf diesen gemeinsamen Flug mit euch zwischen Licht, Liebe und Unendlichkeit. ⭐💛🌙
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <section class="stardust-section">
+        <div class="stardust-glow"></div>
+        <div class="stardust-content">
+            <span class="stardust-badge">✦ Unser Flug ins All ✦</span>
+            
+            <h2 class="stardust-title">To the Moon & Beyond</h2>
+
+            <div class="poetry-verse">
+                <p>Wir lieben uns bis zum Mond – und weiter.</p>
+                <p>Weil jeder Schritt, den wir gehen, ein kleines Stück Sternenlicht trägt.</p>
+                <p>Weil unsere Wege sich gefunden haben wie zwei Bahnen, die sich im All kreuzen.</p>
+                <p>Weil Nähe bei uns nicht nur ein Gefühl ist, sondern ein eigener Himmel.</p>
+            </div>
+
+            <div class="poetry-highlight">
+                „Du bist mein Licht in der Nacht, mein sicherer Kurs, mein Orbit.<br>
+                Mit dir fühlt sich jede Reise leichter an, jeder Moment größer, jeder Tag heller.<br>
+                Du bist mein Fernlicht, mein Kompass, mein Zuhause zwischen Sternen und Stille.“
+            </div>
+
+            <div class="poetry-verse">
+                <p>Unsere Liebe fliegt nicht – sie schwebt.</p>
+                <p>Sie trägt uns durch Raum und Zeit, durch Höhen und Weiten,</p>
+                <p>durch alles, was wir sind und alles, was wir noch werden.</p>
+            </div>
+
+            <div class="poetry-promise">
+                <span>To the Moon – das ist unser Versprechen.</span>
+                <p>Ein Flug zwischen Licht, Liebe und Unendlichkeit.<br>Ein Weg, den wir gemeinsam gehen. Ein Himmel, den wir gemeinsam bauen.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Timeline Sektion im Zickzack-Design -->
+    <section class="story-stats-section">
+        <div class="story-stats-container">
+            <h1>Unsere Geschichte</h1>
+            <p class="story-stats-intro">Von einem unvergesslichen ersten Date bis zum Ja-Wort</p>
+
+            <div class="space-timeline">
+                
+                <!-- Meilenstein 1 -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="stat-card">
+                        <span class="card-date">05. August 2018</span>
+                        <h3>Die Landung im Glück</h3>
+                        <p>Zwei Umlaufbahnen, ein Kurs: Seit diesem Tag teilen wir uns nicht nur die Snacks, sondern offiziell auch das Leben.</p>
+                    </div>
+                </div>
+
+                <!-- Meilenstein 2 -->
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="stat-card">
+                        <span class="card-date">26. Februar 2020</span>
+                        <h3>Kontrollzentrum bezogen</h3>
+                        <p>Ein kleiner Schritt für den Umzugswagen, ein riesiger Sprung für unser gemeinsames Hauptquartier: Ab jetzt wird dauerhaft unter einem Dach gelebt.</p>
+                    </div>
+                </div>
+
+                <!-- Meilenstein 3 -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="stat-card">
+                        <span class="card-date">26. Oktober 2020</span>
+                        <h3>Nuts wird Teil der Crew</h3>
+                        <p>Mit Nuts zog das pure Glück bei uns ein und brachte noch mehr Trubel, Liebe und vier Pfoten in unseren Alltag.</p>
+                    </div>
+                </div>
+
+                <!-- Meilenstein 4 -->
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="stat-card">
+                        <span class="card-date">08. November 2025</span>
+                        <h3>Co-Pilot im Anmarsch</h3>
+                        <p>Der letzte Check-in für unser Rudel: Urmel übernahm die Co-Pilotenschaft und brachte noch mehr Fell und gute Laune in den Alltag.</p>
+                    </div>
+                </div>
+
+                <!-- Meilenstein 5 -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="stat-card">
+                        <span class="card-date">Die Zukunft</span>
+                        <h3>To the Moon and back</h3>
+                        <p>Die schönste Reise unseres Lebens beginnt – und dank unserer Lieblingsmenschen an unserer Seite wird dieser Flug absolut unvergesslich.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Tagesablauf / Flugplan -->
+    <section class="timeline-section" style="padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; color: #ffffff; font-family: 'Handlee', cursive, sans-serif;">
+        
+        <div style="text-align: left; margin-bottom: 4rem; width: 60%; margin-left: -25%;">
+            <h2 style="font-family: 'Alex Brush', cursive; font-size: 4rem; color: #e6cfa9; margin: 0; line-height: 1.1; white-space: nowrap;">Der Flugplan</h2>
+        </div>
+
+        <div class="zigzag-timeline" style="position: relative; width: 100%;">
+            <div style="position: absolute; left: 50%; transform: translateX(-50%); top: 10px; bottom: 10px; width: 2px; background: linear-gradient(to bottom, #e6cfa9, rgba(230, 207, 169, 0.2));"></div>
+
+            <!-- Punkt 1: 14:00 Uhr -->
+            <div class="timeline-row" style="position: relative; display: flex; justify-content: flex-end; margin-bottom: 3.5rem; width: 100%;">
+                <div style="width: 47%; display: flex; justify-content: flex-end; padding-right: 2.5rem;">
+                    <div style="background: rgba(15, 18, 28, 0.9); border: 1px solid rgba(230, 207, 169, 0.3); padding: 2rem; border-radius: 16px; box-shadow: 0 6px 25px rgba(0,0,0,0.5); text-align: left; width: 100%;">
+                        <span style="font-size: 1rem; color: #e6cfa9; letter-spacing: 1.5px; font-weight: bold; text-transform: uppercase;">14:00 Uhr</span>
+                        <h3 style="font-size: 1.6rem; color: #ffffff; margin: 0.4rem 0 0.8rem 0; font-family: sans-serif;">🚀 Countdown &amp; Standesamtliche Trauung</h3>
+                        <p style="color: #d0d5dd; margin: 0; font-size: 1.15rem; line-height: 1.5;">
+                            Der Countdown läuft, die Crew ist bereit und wir starten in ein neues Abenteuer. Die <span style="color: #e6cfa9;">standesamtliche Trauung</span> findet im kleinen Kreis statt. Wer aber gerne danach gratulieren möchte, ist herzlich eingeladen, uns am Standesamt zu treffen und mit uns anzustoßen.
+                        </p>
+                    </div>
+                </div>
+                <div style="position: absolute; left: 50%; transform: translateX(-50%); top: 24px; width: 18px; height: 18px; border-radius: 50%; background-color: #0b0f19; border: 2px solid #e6cfa9; box-shadow: 0 0 14px #e6cfa9; z-index: 2;"></div>
+                <div style="width: 47%; display: flex; justify-content: flex-start; padding-left: 2.5rem;">
+                    <div style="background: rgba(15, 18, 28, 0.9); border: 1px solid rgba(230, 207, 169, 0.3); overflow: hidden; border-radius: 16px; box-shadow: 0 6px 25px rgba(0,0,0,0.5); text-align: left; width: 100%; align-self: center;">
+                        <div style="width: 100%; height: 160px; overflow: hidden;">
+                            <img src="~/images/Königshof.jpg" alt="Königshof Erwitte" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="padding: 1.5rem 2rem;">
+                            <span style="font-size: 0.9rem; color: #e6cfa9; letter-spacing: 1.2px; font-weight: bold; text-transform: uppercase;">📍 Sektor-Koordinaten</span>
+                            <h4 style="font-size: 1.3rem; color: #ffffff; margin: 0.3rem 0 0.5rem 0; font-family: sans-serif;">Königshof Erwitte</h4>
+                            <p style="color: #d0d5dd; margin: 0; font-size: 1.05rem; line-height: 1.4;">
+                                Am Markt 13<br>59597 Erwitte<br />Parkplätze Am Markt vorhanden.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Punkt 2: 15:30 Uhr -->
+            <div class="timeline-row" style="position: relative; display: flex; justify-content: flex-start; margin-bottom: 3.5rem; width: 100%;">
+                <div style="width: 47%; display: flex; justify-content: flex-end; padding-right: 2.5rem;">
+                    <div style="background: rgba(15, 18, 28, 0.9); border: 1px solid rgba(230, 207, 169, 0.3); overflow: hidden; border-radius: 16px; box-shadow: 0 6px 25px rgba(0,0,0,0.5); text-align: left; width: 100%; align-self: center;">
+                        <div style="width: 100%; height: 160px; overflow: hidden;">
+                            <img src="~/images/Spikeltrix2.webp" alt="Sprikeltrix" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="padding: 1.5rem 2rem;">
+                            <span style="font-size: 0.9rem; color: #e6cfa9; letter-spacing: 1.2px; font-weight: bold; text-transform: uppercase;">📍 Sektor-Koordinaten</span>
+                            <h4 style="font-size: 1.3rem; color: #ffffff; margin: 0.3rem 0 0.5rem 0; font-family: sans-serif;">Sprikeltrix</h4>
+                            <p style="color: #d0d5dd; margin: 0; font-size: 1.05rem; line-height: 1.4;">
+                                Am Westbach 5<br>59597 Erwitte<br />Parkplätze vorhanden.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div style="position: absolute; left: 50%; transform: translateX(-50%); top: 24px; width: 18px; height: 18px; border-radius: 50%; background-color: #0b0f19; border: 2px solid #e6cfa9; box-shadow: 0 0 14px #e6cfa9; z-index: 2;"></div>
+                <div style="width: 47%; display: flex; justify-content: flex-start; padding-left: 2.5rem;">
+                    <div style="background: rgba(15, 18, 28, 0.9); border: 1px solid rgba(230, 207, 169, 0.3); padding: 2rem; border-radius: 16px; box-shadow: 0 6px 25px rgba(0,0,0,0.5); text-align: left; width: 100%;">
+                        <span style="font-size: 1rem; color: #e6cfa9; letter-spacing: 1.5px; font-weight: bold; text-transform: uppercase;">15:30 Uhr</span>
+                        <h3 style="font-size: 1.6rem; color: #ffffff; margin: 0.4rem 0 0.8rem 0; font-family: sans-serif;">💍 Liftoff (freie Trauung &amp; Feier)</h3>
+                        <p style="color: #d0d5dd; margin: 0; font-size: 1.15rem; line-height: 1.5;">
+                            Der offizielle Startschuss – wir heben ab und geben uns das <span style="color: #e6cfa9;">Ja-Wort im Sprikeltrix.</span> Danach wird gefeiert, getanzt und die Schwerelosigkeit genossen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Punkt 3: 16:30 Uhr -->
+            <div class="timeline-row" style="position: relative; display: flex; justify-content: flex-end; margin-bottom: 3.5rem; width: 100%;">
+                <div style="width: 47%; display: flex; justify-content: flex-end; padding-right: 2.5rem;">
+                    <div style="background: rgba(15, 18, 28, 0.9); border: 1px solid rgba(230, 207, 169, 0.3); padding: 2rem; border-radius: 16px; box-shadow: 0 6px 25px rgba(0,0,0,0.5); text-align: left; width: 100%;">
+                        <span style="font-size: 1rem; color: #e6cfa9; letter-spacing: 1.5px; font-weight: bold; text-transform: uppercase;">16:30 Uhr</span>
+                        <h3 style="font-size: 1.6rem; color: #ffffff; margin: 0.4rem 0 0.8rem 0; font-family: sans-serif;">🥂 Sektor-Empfang</h3>
+                        <p style="color: #d0d5dd; margin: 0; font-size: 1.15rem; line-height: 1.5;">
+                            Nach der Trauung und dem offiziellen Teil laden wir euch herzlich ein, mit uns auf diesen besonderen Tag anzustoßen. Genießt die ersten Stunden in der <span style="color: #e6cfa9;">Schwerelosigkeit</span>, bevor das galaktische Dinner beginnt.
+                        </p>
+                    </div>
+                </div>
+                <div style="position: absolute; left: 50%; transform: translateX(-50%); top: 24px; width: 18px; height: 18px; border-radius: 50%; background-color: #0b0f19; border: 2px solid #e6cfa9; box-shadow: 0 0 14px #e6cfa9; z-index: 2;"></div>
+                <div style="width: 47%;"></div>
+            </div>
+
+            <!-- Punkt 4: 19:00 Uhr -->
+            <div class="timeline-row" style="position: relative; display: flex; justify-content: flex-start; margin-bottom: 1rem; width: 100%;">
+                <div style="width: 47%;"></div>
+                <div style="position: absolute; left: 50%; transform: translateX(-50%); top: 24px; width: 18px; height: 18px; border-radius: 50%; background-color: #0b0f19; border: 2px solid #e6cfa9; box-shadow: 0 0 14px #e6cfa9; z-index: 2;"></div>
+                <div style="width: 47%; display: flex; justify-content: flex-start; padding-left: 2.5rem;">
+                    <div style="background: rgba(15, 18, 28, 0.9); border: 1px solid rgba(230, 207, 169, 0.3); padding: 2rem; border-radius: 16px; box-shadow: 0 6px 25px rgba(0,0,0,0.5); text-align: left; width: 100%;">
+                        <span style="font-size: 1rem; color: #e6cfa9; letter-spacing: 1.5px; font-weight: bold; text-transform: uppercase;">19:00 Uhr</span>
+                        <h3 style="font-size: 1.6rem; color: #ffffff; margin: 0.4rem 0 0.8rem 0; font-family: sans-serif;">🌌 Galaktisches Dinner &amp; Party</h3>
+                        <p style="color: #d0d5dd; margin: 0; font-size: 1.15rem; line-height: 1.5;">
+                            Eröffnung des Buffets, emotionale Reden aus der Kontrollzentrale und danach <span style="color: #e6cfa9;">freier Flug auf der Tanzfläche bis zum Mond!</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 6rem; text-align: center;">
+            <div style="height: 2px; width: 80%; margin: 0 auto; background: linear-gradient(to right, transparent, #e6cfa9, transparent); box-shadow: 0 0 12px rgba(230,207,169,0.6);"></div>
+        </div>
+    </section>
+  <!-- Crew / Trauzeuginnen Sektion -->
+    <section class="crew-section">
+        <div class="crew-container">
+            <h2>Unsere Crew</h2>
+            <p class="crew-intro">Die wichtigsten Begleiterinnen auf dem Weg zum Mond</p>
+            
+            <div class="crew-grid">
+                <!-- Heike -->
+                <div class="crew-card">
+                    <div class="crew-photo-wrapper">
+                        <img src="~/images/heike.jpg" alt="Heike - Trauzeugin" class="crew-photo">
+                    </div>
+                    <div class="crew-info">
+                        <h3>Heike</h3>
+                        <div class="crew-role">Trauzeugin</div>
+                        <p class="crew-desc">Seit über 40 Jahren an Andreas’ Seite – sie kennt alle Geschichten, hat jede Turbulenz miterlebt und ist der absolute Fels in der Brandung für diesen gemeinsamen Flug.</p>
+                        <p class="crew-funfact">Bringt selbst dann noch alle zum Lachen, wenn die Rakete kurz vor dem Start wackelt und die Ruhe bewahrt werden muss.</p>
+                        
+                        <!-- Telefonnummer / Kontakt -->
+                        <div class="crew-contact">
+                            <a href="tel:+491234567890">
+                                <span class="phone-icon">📞</span> +49 123 4567890
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lulu -->
+                <div class="crew-card">
+                    <div class="crew-photo-wrapper">
+                        <img src="~/images/lulu.jpg" alt="Lulu - Trauzeugin" class="crew-photo">
+                    </div>
+                    <div class="crew-info">
+                        <h3>Lulu</h3>
+                        <div class="crew-role">Trauzeugin</div>
+                        <p class="crew-desc">Ein ganz besonderes Band verbindet die beiden – und natürlich darf dieser enge Herzensmensch und das Patenkind bei dieser großen Reise als Co-Pilotin nicht fehlen.</p>
+                        <p class="crew-funfact">Hat immer einen lockeren Spruch auf den Lippen und bringt die ganze Crew mit nur einem Blick zum Schmunzeln.</p>
+                        
+                        <!-- Telefonnummer / Kontakt -->
+                        <div class="crew-contact">
+                            <a href="tel:+499876543210">
+                                <span class="phone-icon">📞</span> +49 987 6543210
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Abschluss-Satz (Beispiel aus den Alternativen) -->
+            <p class="section-footer">Mit den besten Co-Piloten an unserer Seite kann der Flug nur legendär werden.</p>
+        </div>
+    </section>
+    <!-- RSVP SECTION -->
+    <section id="rsvp" class="rsvp-section">
+        <div class="rsvp-container">
+            <span class="subtitle">Fliegt ihr mit uns zum Mond?</span>
+            <h2>Seid ihr dabei?</h2>
+            <p class="rsvp-intro">Wir können es kaum erwarten, diesen Meilenstein gemeinsam mit unseren Lieblingsmenschen zu feiern. Bitte gebt uns bis zum 01. Juli 2028 Bescheid.</p>
+
+            <form class="rsvp-form" method="post">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div style="background: rgba(46, 204, 113, 0.2); border: 1px solid #2ecc71; color: #2ecc71; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                <div class="form-group">
+                    <label>Teilnahme *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" asp-for="Rsvp.IsAttending" value="true" required checked onclick="toggleGuestField(true)"> Ja, ich/wir sind dabei! 🚀</label>
+                        <label><input type="radio" asp-for="Rsvp.IsAttending" value="false" onclick="toggleGuestField(false)"> Leinen los, aber leider ohne mich</label>
+                    </div>
+                </div>
+
+                <div id="attendance-details-wrapper">
+                    <div class="form-group">
+                        <label for="name">Dein Name *</label>
+                        <input type="text" asp-for="Rsvp.Name" id="name" placeholder="Vor- und Nachname" required />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-Mail-Adresse *</label>
+                        <input type="email" asp-for="Rsvp.Email" id="email" placeholder="deine@email.de" required />
+                    </div>
+
+                    <div class="form-group" id="guest-toggle-group">
+                        <label>Bringst du eine Begleitung mit?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" asp-for="Rsvp.HasPartner" value="yes" onclick="togglePartnerInput(true)"> Ja</label>
+                            <label><input type="radio" asp-for="Rsvp.HasPartner" value="no" checked onclick="togglePartnerInput(false)"> Nein</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden" id="partner-name-wrapper">
+                        <label for="partnerName">Name der Begleitung</label>
+                        <input type="text" asp-for="Rsvp.PartnerName" id="partnerName" placeholder="Vor- und Nachname der Begleitung" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Catering-Wünsche & Anzahl Menüs</label>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 8px; border: 1px solid rgba(230, 207, 169, 0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="color: #fff; font-size: 0.9rem; margin: 0;">🥩 Klassisch:</label>
+                                <input type="number" asp-for="Rsvp.CateringOmnivore" min="0" value="0" style="width: 90px; padding: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(230, 207, 169, 0.3); border-radius: 5px; color: #fff; text-align: center;" />
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="color: #fff; font-size: 0.9rem; margin: 0;">🥗 Vegetarisch:</label>
+                                <input type="number" asp-for="Rsvp.CateringVegetarian" min="0" value="0" style="width: 90px; padding: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(230, 207, 169, 0.3); border-radius: 5px; color: #fff; text-align: center;" />
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="color: #fff; font-size: 0.9rem; margin: 0;">🌱 Vegan:</label>
+                                <input type="number" asp-for="Rsvp.CateringVegan" min="0" value="0" style="width: 90px; padding: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(230, 207, 169, 0.3); border-radius: 5px; color: #fff; text-align: center;" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kids">Anzahl Kinder (falls sie mitkommen)</label>
+                        <input type="number" asp-for="Rsvp.Kids" id="kids" min="0" value="0" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="allergies">Allergien / Unverträglichkeiten</label>
+                        <input type="text" asp-for="Rsvp.Allergies" id="allergies" placeholder="z.B. Gluten, Laktose, Nüsse..." />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="song">Musikwunsch für die Party</label>
+                        <input type="text" asp-for="Rsvp.Song" id="song" placeholder="Welcher Song bringt dich auf den Dancefloor?" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Nachricht an das Brautpaar</label>
+                    <textarea asp-for="Rsvp.Message" id="message" rows="4" placeholder="Eure Wünsche, Grüße oder Anmerkungen..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary rsvp-submit">Zusage abschicken</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section" style="padding: 4rem 2rem; max-width: 900px; margin: 0 auto; position: relative; z-index: 10;">
+        <div style="background-color: #0b0f19 !important; border: 2px solid #e6cfa9 !important; padding: 3rem 2.5rem; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.9);">
+            
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <h2 style="font-family: 'Alex Brush', cursive; font-size: 3.5rem; color: #e6cfa9 !important; margin: 0; line-height: 1.1; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">Häufige Fragen (FAQ)</h2>
+                <span style="font-family: 'Pinyon Script', cursive; font-size: 1.8rem; color: #e6cfa9 !important; display: block; margin-top: 0.2rem;">Alles, was ihr für unseren großen Tag wissen müsst</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                
+                <!-- FAQ Item 1 -->
+                <div class="faq-card-item" style="background-color: #131929 !important; border: 1px solid #e6cfa9 !important; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    <button type="button" onclick="toggleFaqCard(this)" style="width: 100%; background: transparent !important; border: none; padding: 1.25rem 1.5rem; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-size: 0.8rem; color: #e6cfa9 !important; letter-spacing: 1.2px; text-transform: uppercase; display: block; margin-bottom: 0.2rem; font-weight: bold;">🛸 FAQ · Bord-Outfit</span>
+                            <span style="font-size: 1.2rem; color: #ffffff !important; font-family: sans-serif; font-weight: bold;">Gibt es einen Dresscode für den Flug?</span>
+                        </div>
+                        <span class="faq-icon" style="font-size: 1.4rem; color: #e6cfa9 !important; font-weight: bold; transition: transform 0.3s ease;">+</span>
+                    </button>
+                    <div class="faq-dropdown-content" style="padding: 0 1.5rem; color: #ffffff !important; font-size: 1.05rem; line-height: 1.5; display: none;">
+                        <p style="margin: 0 0 1.25rem 0; border-top: 1px solid rgba(230,207,169,0.3); padding-top: 1rem; color: #ffffff !important;">
+                            Zieht an, worin ihr euch wohlfühlt und exzessiv das Tanzbein schwingen könnt! Einziger Haken: Bitte keine Jogginghose – es sei denn, sie glitzert im Sternenlicht. 😉
+                        </p>
+                    </div>
+                </div>
+
+               <!-- FAQ Item 2 -->
+                <div class="faq-card-item" style="background-color: #131929 !important; border: 1px solid #e6cfa9 !important; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    <button type="button" onclick="toggleFaqCard(this)" style="width: 100%; background: transparent !important; border: none; padding: 1.25rem 1.5rem; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-size: 0.8rem; color: #e6cfa9 !important; letter-spacing: 1.2px; text-transform: uppercase; display: block; margin-bottom: 0.2rem; font-weight: bold;">🎁 FAQ · Bordgepäck</span>
+                            <span style="font-size: 1.2rem; color: #ffffff !important; font-family: sans-serif; font-weight: bold;">Wie sieht es mit Geschenken aus?</span>
+                        </div>
+                        <span class="faq-icon" style="font-size: 1.4rem; color: #e6cfa9 !important; font-weight: bold; transition: transform 0.3s ease;">+</span>
+                    </button>
+                    <div class="faq-dropdown-content" style="padding: 0 1.5rem; color: #ffffff !important; font-size: 1.05rem; line-height: 1.5; display: none;">
+                        <p style="margin: 0 0 1.25rem 0; border-top: 1px solid rgba(230,207,169,0.3); padding-top: 1rem; color: #ffffff !important;">
+                            Über euer Kommen freuen wir uns am meisten! Falls ihr unsere Bordkasse für die Flitterwochen auffüllen möchtet, haben wir natürlich nichts dagegen.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-card-item" style="background-color: #131929 !important; border: 1px solid #e6cfa9 !important; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    <button type="button" onclick="toggleFaqCard(this)" style="width: 100%; background: transparent !important; border: none; padding: 1.25rem 1.5rem; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-size: 0.8rem; color: #e6cfa9 !important; letter-spacing: 1.2px; text-transform: uppercase; display: block; margin-bottom: 0.2rem; font-weight: bold;">🚗 FAQ · Landeplätze</span>
+                            <span style="font-size: 1.2rem; color: #ffffff !important; font-family: sans-serif; font-weight: bold;">Gibt es Parkplätze an den Locations?</span>
+                        </div>
+                        <span class="faq-icon" style="font-size: 1.4rem; color: #e6cfa9 !important; font-weight: bold; transition: transform 0.3s ease;">+</span>
+                    </button>
+                    <div class="faq-dropdown-content" style="padding: 0 1.5rem; color: #ffffff !important; font-size: 1.05rem; line-height: 1.5; display: none;">
+                        <p style="margin: 0 0 1.25rem 0; border-top: 1px solid rgba(230,207,169,0.3); padding-top: 1rem; color: #ffffff !important;">
+                            Ja, sowohl am Königshof als auch am Sprikeltrix stehen ausreichend Landeplätze bzw. Parkmöglichkeiten für eure Raumschiffe (Autos) bereit.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-card-item" style="background-color: #131929 !important; border: 1px solid #e6cfa9 !important; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    <button type="button" onclick="toggleFaqCard(this)" style="width: 100%; background: transparent !important; border: none; padding: 1.25rem 1.5rem; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-size: 0.8rem; color: #e6cfa9 !important; letter-spacing: 1.2px; text-transform: uppercase; display: block; margin-bottom: 0.2rem; font-weight: bold;">🌌 FAQ · Kontrollzentrum</span>
+                            <span style="font-size: 1.2rem; color: #ffffff !important; font-family: sans-serif; font-weight: bold;">An wen wende ich mich bei Fragen?</span>
+                        </div>
+                        <span class="faq-icon" style="font-size: 1.4rem; color: #e6cfa9 !important; font-weight: bold; transition: transform 0.3s ease;">+</span>
+                    </button>
+                    <div class="faq-dropdown-content" style="padding: 0 1.5rem; color: #ffffff !important; font-size: 1.05rem; line-height: 1.5; display: none;">
+                        <p style="margin: 0 0 1.25rem 0; border-top: 1px solid rgba(230,207,169,0.3); padding-top: 1rem; color: #ffffff !important;">
+                            Bei allen weiteren Fragen rund um den Flugplan könnt ihr euch jederzeit direkt an unsere Boden- und Kontrollcrew (uns) oder unsere Trauzeugen wenden.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Skripte für FAQ, RSVP-Toggle und Countdown -->
+    <script>
+        function toggleFaqCard(button) {
+            const cardItem = button.parentElement;
+            const content = cardItem.querySelector('.faq-dropdown-content');
+            const icon = cardItem.querySelector('.faq-icon');
+            
+            document.querySelectorAll('.faq-card-item').forEach(item => {
+                if (item !== cardItem) {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-dropdown-content').style.display = 'none';
+                    item.querySelector('.faq-icon').textContent = '+';
+                }
+            });
+
+            cardItem.classList.toggle('active');
+            if (cardItem.classList.contains('active')) {
+                content.style.display = 'block';
+                icon.textContent = '✕';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '+';
+            }
+        }
+
+        function toggleGuestField(isAttending) {
+            const wrapper = document.getElementById('attendance-details-wrapper');
+            if (wrapper) {
+                wrapper.style.display = isAttending ? 'block' : 'none';
+            }
+        }
+
+        function togglePartnerInput(hasPartner) {
+            const partnerWrapper = document.getElementById('partner-name-wrapper');
+            const partnerInput = document.getElementById('partnerName');
+
+            if (partnerWrapper && partnerInput) {
+                if (hasPartner) {
+                    partnerWrapper.classList.remove('hidden');
+                    partnerInput.required = true;
+                } else {
+                    partnerWrapper.classList.add('hidden');
+                    partnerInput.required = false;
+                    partnerInput.value = '';
+                }
+            }
+        }
+
+        // Countdown-Logik für den 05. August 2028
+        function updateCountdown() {
+            const weddingDate = new Date(2028, 7, 5, 0, 0, 0).getTime();
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const countdownElement = document.getElementById("wedding-countdown");
+            if (!countdownElement) return;
+
+            if (distance < 0) {
+                countdownElement.innerHTML = 
+                    "<h4 style='color: #e6cfa9; font-family: Pinyon Script, cursive; font-size: 2.5rem;'>Der Countdown ist vorbei – Wir haben Ja gesagt! 🌕</h4>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const daysEl = document.getElementById("days");
+            const hoursEl = document.getElementById("hours");
+            const minutesEl = document.getElementById("minutes");
+            const secondsEl = document.getElementById("seconds");
+
+            if (daysEl) daysEl.innerText = String(days).padStart(2, '0');
+            if (hoursEl) hoursEl.innerText = String(hours).padStart(2, '0');
+            if (minutesEl) minutesEl.innerText = String(minutes).padStart(2, '0');
+            if (secondsEl) secondsEl.innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+
+    <!-- Scroll-Animation für die Timeline -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const rows = document.querySelectorAll(".zigzag-timeline .timeline-row");
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            rows.forEach(row => {
+                observer.observe(row);
+            });
+        });
+    </script>
+</body>
+</html>

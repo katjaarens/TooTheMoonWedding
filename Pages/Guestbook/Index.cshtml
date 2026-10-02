@@ -1,0 +1,122 @@
+@page
+@model TooTheMoonWedding.Pages.Guestbook.IndexModel
+@{
+    ViewData["Title"] = "Gästebuch";
+}
+
+<div class="container my-5" style="max-width: 900px;">
+    <h2 class="text-center mb-3 display-5" style="color: #e6cfa9; font-weight: 700; text-shadow: 0 0 15px rgba(230, 207, 169, 0.4);">Gästebuch</h2>
+    <p class="text-center mb-5" style="color: #d0d5dd; font-weight: 300;">Hinterlasst uns hier gerne ein paar liebe Worte, Wünsche oder Erinnerungen für unseren großen Tag!</p>
+
+    <!-- Eingabeformular -->
+    <div class="card p-4 mb-5 shadow-lg" style="background-color: rgba(30, 35, 50, 0.6); border: 1px solid rgba(230, 207, 169, 0.2); border-radius: 15px; backdrop-filter: blur(10px);">
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="NewEntry.Name" class="form-label" style="color: #e6cfa9;">Dein Name / eure Namen</label>
+                <input asp-for="NewEntry.Name" class="form-control" required placeholder="z. B. Anna & Max" style="background-color: #151823; color: #fff; border-color: rgba(230, 207, 169, 0.3);">
+                <span asp-validation-for="NewEntry.Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="NewEntry.Message" class="form-label" style="color: #e6cfa9;">Deine Nachricht</label>
+                <textarea asp-for="NewEntry.Message" class="form-control" rows="4" required placeholder="Schreibt etwas Schönes..." style="background-color: #151823; color: #fff; border-color: rgba(230, 207, 169, 0.3);"></textarea>
+                <span asp-validation-for="NewEntry.Message" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn px-4 w-100" style="background-color: #e6cfa9; color: #0f121c; font-weight: bold;">Eintrag absenden</button>
+        </form>
+    </div>
+
+    <!-- Überschrift für die Liste -->
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2" style="border-color: rgba(230, 207, 169, 0.2) !important;">
+        <h3 style="color: #e6cfa9; font-weight: 600;">Bisherige Nachrichten</h3>
+        <span class="badge px-3 py-2" style="background-color: #151823; color: #fff; border: 1px solid rgba(230, 207, 169, 0.3);">@Model.Entries.Count Einträge</span>
+    </div>
+
+   <!-- Liste der Einträge im Polaroid-Stil -->
+    <div class="row">
+        @if (Model.Entries.Count == 0)
+        {
+            <div class="col-12 text-center mt-4">
+                <p class="fs-5" style="color: #a0a6b8; font-weight: 300;">Bisher sind noch keine Einträge da. Seht als Erste/r nach!</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var entry in Model.Entries)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <!-- Polaroid-Karte mit zufälliger leichter Drehung -->
+                    <div class="card h-100 shadow p-3 polaroid-card position-relative" style="background-color: #ffffff; border: none; border-radius: 4px; transform: rotate(@(new Random().Next(-2, 2))deg); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: default;">
+                        
+                        <!-- Admin-Lösch-Knäppchen (Nur sichtbar, wenn eingeloggt) -->
+                        @if (Model.IsAdmin)
+                        {
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@entry.Id" onsubmit="return confirm('Diesen Eintrag wirklich löschen?');" style="position: absolute; top: 10px; right: 10px; z-index: 5;">
+                                <button type="submit" class="btn btn-sm btn-outline-danger p-1" style="line-height: 1; border-radius: 50%; width: 28px; height: 28px;" title="Eintrag löschen">
+                                    &times;
+                                </button>
+                            </form>
+                        }
+
+                        <div class="card-body d-flex flex-column" style="padding: 15px 15px 40px 15px;">
+                            <p class="card-text mt-2 flex-grow-1" style="white-space: pre-line; color: #333; font-family: 'Handlee', cursive, sans-serif; font-size: 1.1rem; line-height: 1.4;">@entry.Message</p>
+                            
+                            <div class="mt-3 pt-2 border-top" style="border-color: #eee !important;">
+                                <h5 class="card-title m-0" style="color: #333; font-weight: 700; font-family: 'Handlee', cursive, sans-serif; font-size: 1.2rem;">@entry.Name</h5>
+                                <small class="text-muted" style="font-size: 0.8rem;">@entry.CreatedAt.ToString("dd.MM.yyyy HH:mm") Uhr</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- Admin Umschalter / Login-Bereich unten auf der Seite -->
+    <div class="text-center mt-5 mb-4">
+        @if (Model.IsAdmin)
+        {
+            <a asp-page-handler="Logout" class="btn btn-sm" style="background-color: transparent; color: #e6cfa9; border: 1px dashed rgba(230, 207, 169, 0.4); font-size: 0.8rem; text-decoration: none;">
+                🔒 Admin-Modus ausschalten
+            </a>
+        }
+        else
+        {
+            <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#adminModal" style="background-color: transparent; color: #8c93a3; border: 1px dashed rgba(230, 207, 169, 0.3); font-size: 0.8rem;">
+                🔓 Admin-Modus einschalten
+            </button>
+        }
+    </div>
+</div>
+
+<!-- Passwort Modal (Popup-Fenster) -->
+<div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: #151823; border: 1px solid rgba(230, 207, 169, 0.3); color: #fff;">
+            <div class="modal-header border-bottom" style="border-color: rgba(230, 207, 169, 0.2) !important;">
+                <h5 class="modal-title" id="adminModalLabel" style="color: #e6cfa9;">Admin-Bereich entsperren</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-page-handler="Login">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="adminPassword" class="form-label" style="color: #d0d5dd;">Passwort eingeben:</label>
+                        <input type="password" asp-for="AdminPassword" class="form-control" id="adminPassword" required style="background-color: #0f121c; color: #fff; border-color: rgba(230, 207, 169, 0.3);">
+                    </div>
+                </div>
+                <div class="modal-footer border-top" style="border-color: rgba(230, 207, 169, 0.2) !important;">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Abbrechen</button>
+                    <button type="submit" class="btn btn-sm" style="background-color: #e6cfa9; color: #0f121c; font-weight: bold;">Einloggen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- CSS für den Hover-Effekt der Polaroids -->
+<style>
+    .polaroid-card:hover {
+        transform: rotate(0deg) scale(1.03) !important;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3) !important;
+        z-index: 10;
+    }
+</style>

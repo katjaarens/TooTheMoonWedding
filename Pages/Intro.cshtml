@@ -1,0 +1,183 @@
+@page "/"
+@{
+    ViewData["Title"] = "Willkommen";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - To the Moon &amp; Back</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Handlee&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <style>
+        body.intro-body {
+            margin: 0;
+            padding: 0;
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: 'Handlee', cursive, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Vollbild-Radar-Container */
+        .fullscreen-radar {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(15, 18, 28, 0.6) 0%, rgba(7, 10, 17, 0.98) 75%);
+            animation: radar-fade-out 0.8s cubic-bezier(0.4, 0, 0.2, 1) 4.2s forwards;
+        }
+
+        /* Edle Goldkreise für den Sonar-Look */
+        .fullscreen-radar::before {
+            content: '';
+            position: absolute;
+            width: min(85vw, 85vh);
+            height: min(85vw, 85vh);
+            border-radius: 50%;
+            border: 1px solid rgba(230, 207, 169, 0.2);
+            box-shadow: 
+                0 0 15px rgba(230, 207, 169, 0.05),
+                inset 0 0 30px rgba(230, 207, 169, 0.08),
+                0 0 0 80px rgba(230, 207, 169, 0.02),
+                0 0 0 160px rgba(230, 207, 169, 0.01);
+            background: 
+                radial-gradient(circle, transparent 30%, rgba(230, 207, 169, 0.04) 31%, transparent 32%),
+                radial-gradient(circle, transparent 60%, rgba(230, 207, 169, 0.04) 61%, transparent 62%),
+                linear-gradient(to right, rgba(230, 207, 169, 0.1) 1px, transparent 1px) 50% 50%,
+                linear-gradient(to bottom, rgba(230, 207, 169, 0.1) 1px, transparent 1px) 50% 50%;
+            z-index: 1;
+        }
+
+        /* Der rotierende Scan-Strahl */
+        .fullscreen-sweep {
+            position: absolute;
+            width: min(90vw, 90vh);
+            height: min(90vw, 90vh);
+            border-radius: 50%;
+            background: conic-gradient(from 0deg at 50% 50%, 
+                rgba(230, 207, 169, 0) 0deg, 
+                rgba(230, 207, 169, 0.02) 270deg, 
+                rgba(230, 207, 169, 0.15) 340deg, 
+                rgba(230, 207, 169, 0.6) 360deg);
+            box-shadow: 0 0 25px rgba(230, 207, 169, 0.15);
+            animation: sweep-rotate 3s linear infinite;
+            z-index: 2;
+        }
+
+        @@keyframes sweep-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Der Mond erscheint bei 3.1 Sekunden */
+        .intro-body .moon-header {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 5;
+            opacity: 0;
+            transform: scale(0.2);
+            animation: moon-found 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 3.1s forwards;
+        }
+
+        @@keyframes moon-found {
+            0% {
+                opacity: 0;
+                transform: scale(0.2);
+                filter: brightness(0) blur(8px);
+            }
+            50% {
+                filter: brightness(2.5) blur(0px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: brightness(1);
+                box-shadow: 0 0 50px rgba(230, 207, 169, 0.8), inset 0 0 20px rgba(230, 207, 169, 0.4);
+            }
+        }
+
+        /* Radar-Ausblenden bei 4.2s */
+        @@keyframes radar-fade-out {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.03);
+                visibility: hidden;
+            }
+        }
+
+        /* Text und Button erscheinen jetzt erst etwas später (ab 5.0s), wenn das Radar komplett weg ist */
+        .intro-content {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: content-reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 5.0s forwards;
+        }
+
+        @@keyframes content-reveal {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="intro-body">
+
+    <!-- Sternenhimmel im Hintergrund -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <!-- Vollbild-Radar -->
+    <div class="fullscreen-radar">
+        <div class="fullscreen-sweep"></div>
+    </div>
+
+    <!-- Der Mond -->
+    <div class="moon-header"></div>
+
+    <!-- Text und Button -->
+    <div class="intro-content">
+        <span style="font-family: 'Pinyon Script', cursive; font-size: 2.3rem; color: #e6cfa9; display: block; margin-bottom: 0.2rem;">Mission Control</span>
+        <h1 style="font-family: 'Alex Brush', cursive; font-size: 4rem; color: #e6cfa9; margin-bottom: 1rem; line-height: 1.1;">Katja &amp; Andrea</h1>
+        <p style="font-size: 1.15rem; color: #d0d5dd; margin-bottom: 2rem; line-height: 1.5;">
+            Bereit für den Flug unseres Lebens? <br>
+            Schnallt euch an, wir heben ab in eine Galaxie voller Erinnerungen, Liebe und guter Musik.
+        </p>
+        
+       <a href="/Main" class="btn-primary">Dem Mond entgegen🌝</a>
+
+    </div>
+
+</body>
+</html>

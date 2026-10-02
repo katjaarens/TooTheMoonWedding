@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TooTheMoonWedding</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Handlee&family=Pinyon+Script&display=swap" rel="stylesheet" asp-append-version="false">
+    <style>
+        body {
+            background-color: #0f121c;
+            color: #ffffff;
+            font-family: 'Handlee', cursive, sans-serif;
+            margin: 0;
+            padding-top: 70px; /* Schiebt den Inhalt unter der fixierten Navbar hervor (Wert je nach Höhe deiner Navbar anpassen) */
+        }
+
+        nav.navbar {
+            background-color: rgba(10, 12, 20, 0.85);
+            backdrop-filter: blur(6px);
+            position: fixed; /* Fixiert die Navbar oben am Bildschirm */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030; /* Zwingt die Navbar ganz nach oben in der Stapelreihenfolge (Bootstrap Standard für fixierte Navbars) */
+        }
+
+        .nav-link {
+            color: #ffffff !important;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+        }
+
+        .navbar-brand {
+            color: #e6cfa9 !important;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(230, 207, 169, 0.9);
+        }
+
+        .nav-link:hover {
+            color: #e6cfa9 !important;
+        }
+
+        footer {
+            background-color: rgba(15, 18, 28, 0.95);
+            border-top: 1px solid rgba(230, 207, 169, 0.3);
+            color: #d0d5dd;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        main {
+            padding-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" asp-page="/Index">🌕 A & K</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                    <ul class="navbar-nav gap-3 align-items-center">
+                        <li class="nav-item"><a class="nav-link" asp-page="/Index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-page="/abc">Hochzeits-ABC</a></li>
+                        <!-- Neuer Sitzplan-Link -->
+                        <li class="nav-item"><a class="nav-link" asp-page="/SeatingPlan">Sitzplan</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-page="/Privacy">Privacy</a></li>
+                        <!-- Admin-Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Admin" style="color: #e6cfa9 !important; font-size: 0.9rem;">Admin</a>
+                        </li>
+                        <li class="nav-item">
+    <a class="nav-link" asp-page="/Guestbook/Index">Gästebuch</a>
+</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer>
+        &copy; 2026 – TooTheMoonWedding
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
